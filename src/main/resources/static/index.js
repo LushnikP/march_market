@@ -35,7 +35,8 @@ angular.module('market', []).controller('indexController', function ($scope, $ht
      $scope.addToCart = function (id) {
          $http.get('http://localhost:8189/market/api/v1/cart/add/' + id)
              .then(function (response) {
-                 $scope.cartTable();
+                console.log(response)
+                $scope.cartTable();
              });
     }
 

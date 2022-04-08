@@ -25,6 +25,7 @@
         <tr>
             <td>ID</td>
             <td>Название</td>
+            <td>Категория</td>
             <td>Цена</td>
             <td></td>
         </tr>
@@ -33,6 +34,7 @@
         <tr ng-repeat="p in products">
             <td>{{p.id}}</td>
             <td>{{p.title}}</td>
+            <td>{{p.categoryTitle}}</td>
             <td>{{p.price}}</td>
             <td>
                 <button class="btn btn-success" ng-click="addToCart(p.id)">Добавить в корзину</button>
@@ -50,6 +52,9 @@
         </div>
         <div class="col-auto">
             <input type="number" class="form-control" id="newProductPrice" ng-model="newProduct.price" placeholder="Цена">
+        </div>
+        <div class="col-auto">
+            <input type="text" class="form-control" id="newProductCategoryTitle" ng-model="newProduct.categoryTitle" placeholder="Название категории">
         </div>
         <div class="col-auto">
             <button type="submit" class="btn btn-primary mb-3">Создать</button>

@@ -7,15 +7,15 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
-@Table(name = "products")
-//@JsonIgnoreProperties({"hibernateLazyInitializer"})
+@Table(name = "categories")
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @NoArgsConstructor
 @Data
-public class Product {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -24,12 +24,8 @@ public class Product {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "price")
-    private BigDecimal price;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @OneToMany(mappedBy = "category")
+    private List<Product> products;
 
     @Column(name = "created_at")
     @CreationTimestamp

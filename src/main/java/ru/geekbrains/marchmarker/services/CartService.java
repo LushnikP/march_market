@@ -1,26 +1,34 @@
 package ru.geekbrains.marchmarker.services;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.geekbrains.marchmarker.entities.Product;
+import ru.geekbrains.marchmarker.exceptions.ResourceNotFoundException;
+import ru.geekbrains.marchmarker.utils.Cart;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
-import java.util.List;
 
 
 @Service
 @RequiredArgsConstructor
 public class CartService {
     private final ProductService productService;
+    private Cart cart;
 
-    @Getter
-    private final List<Product> card = new ArrayList<>();
-
-    public void addToCart(Long id) {
-        card.add(productService.findById(id));
-        System.out.println(card);
+    @PostConstruct
+    public void init(){
+        cart = new Cart();
+        cart.setItems(new ArrayList<>());
     }
 
+    public Cart getCurrentCart(){
+        return cart;
+    }
+
+    public void addToCart(Long productId){
+        Product p = productService.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Продукт с id: " + productId + " не найден"));
+        cart.add(p);
+    }
 
 }
