@@ -1,12 +1,14 @@
 package ru.geekbrains.marchmarker.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import ru.geekbrains.marchmarker.entities.Product;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import ru.geekbrains.marchmarker.converters.ProductConverter;
+import ru.geekbrains.marchmarker.dtos.ProductDto;
+import ru.geekbrains.marchmarker.exceptions.ResourceNotFoundException;
 import ru.geekbrains.marchmarker.services.CartService;
+import ru.geekbrains.marchmarker.services.ProductService;
+import ru.geekbrains.marchmarker.utils.Cart;
 
 import java.util.List;
 
@@ -16,14 +18,13 @@ import java.util.List;
 public class CartController {
     private final CartService cartService;
 
-
-    @GetMapping("/add/{id}")
-    public void addToCart(@PathVariable Long id){
-        cartService.addToCart(id);
+    @GetMapping
+    public Cart getCurrentCart(){
+        return cartService.getCurrentCart();
     }
 
-    @GetMapping()
-    public List<Product> getCart(){
-        return cartService.getCard();
+    @GetMapping("/add/{productId}")
+    public void addProductToCart(@PathVariable Long productId){
+        cartService.addToCart(productId);
     }
 }
