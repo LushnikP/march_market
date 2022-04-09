@@ -24,6 +24,19 @@ public class Cart {
         recalculate();
     }
 
+    public void remove(Product p){
+        for (CartItem item : items){
+            if (item.getProductId().equals(p.getId())){
+                item.decrementQuantity();
+                recalculate();
+                if(item.getQuantity() == 0){
+                    items.remove(item);
+                }
+                return;
+            }
+        }
+    }
+
     public void clear(){
         items.clear();
         totalPrice = BigDecimal.ZERO;

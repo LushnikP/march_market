@@ -67,17 +67,34 @@
     <table class="table table-hover">
         <thead>
         <tr>
+            <td>ID</td>
             <td>Название</td>
             <td>Цена</td>
-            <td></td>
+            <td>Количество</td>
+            <td>Итог</td>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="c in cart">
-            <td>{{c.title}}</td>
+        <tr ng-repeat="c in cart.items">
+            <td>{{c.productId}}</td>
+            <td>{{c.productTitle}}</td>
+            <td>{{c.pricePerProduct}}</td>
+            <td>
+                <button class="btn btn-outline-secondary" ng-click="deleteFromCart(c.productId)">-</button>
+                {{c.quantity}}
+                <button class="btn btn-outline-secondary" ng-click="addToCart(c.productId)">+</button>
+            </td>
             <td>{{c.price}}</td>
         </tr>
         </tbody>
+        <tfoot>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td align="center">Всего:</td>
+            <td>{{cart.totalPrice}}</td>
+            <td> <button class="btn btn-danger" ng-click="clearCart()">Очистить корзину</button></td>
+        </tfoot>
     </table>
 </div>
 </body>
