@@ -22,6 +22,10 @@ public class CartService {
         cart.setItems(new ArrayList<>());
     }
 
+    public void clearCart(){
+        cart.clear();
+    }
+
     public Cart getCurrentCart(){
         return cart;
     }
@@ -31,4 +35,8 @@ public class CartService {
         cart.add(p);
     }
 
+    public void deleteById(Long productId) {
+        Product p = productService.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Продукт с id: " + productId + " не найден"));
+        cart.remove(p);
+    }
 }

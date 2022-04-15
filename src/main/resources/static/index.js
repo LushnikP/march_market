@@ -32,8 +32,24 @@ angular.module('market', []).controller('indexController', function ($scope, $ht
             });
     }
 
-     $scope.addToCart = function (id) {
-         $http.get('http://localhost:8189/market/api/v1/cart/add/' + id)
+     $scope.addToCart = function (productId) {
+         $http.get('http://localhost:8189/market/api/v1/cart/add/' + productId)
+             .then(function (response) {
+                console.log(response)
+                $scope.cartTable();
+             });
+    }
+
+     $scope.clearCart = function () {
+         $http.delete('http://localhost:8189/market/api/v1/cart/')
+             .then(function (response) {
+                console.log(response)
+                $scope.cartTable();
+             });
+    }
+
+     $scope.deleteFromCart = function (productId) {
+         $http.delete('http://localhost:8189/market/api/v1/cart/' + productId)
              .then(function (response) {
                 console.log(response)
                 $scope.cartTable();

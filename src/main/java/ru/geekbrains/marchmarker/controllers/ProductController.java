@@ -6,13 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.marchmarker.converters.ProductConverter;
 import ru.geekbrains.marchmarker.dtos.ProductDto;
-import ru.geekbrains.marchmarker.entities.Product;
-import ru.geekbrains.marchmarker.exceptions.AppError;
 import ru.geekbrains.marchmarker.exceptions.ResourceNotFoundException;
 import ru.geekbrains.marchmarker.services.ProductService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/products")
@@ -24,7 +21,6 @@ public class ProductController {
 
     @GetMapping
     public List<ProductDto> getAllProducts(){
-        //return productService.findAll();
         return productConverter.allEntitiesToDto(productService.findAll());
     }
 
