@@ -1,4 +1,4 @@
-package ru.geekbrains.marchmarker.controllers;
+package ru.geekbrains.marchmarker.core.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -8,11 +8,15 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import ru.geekbrains.marchmarker.dtos.JwtRequest;
-import ru.geekbrains.marchmarker.dtos.JwtResponse;
-import ru.geekbrains.marchmarker.exceptions.AppError;
-import ru.geekbrains.marchmarker.services.UserService;
-import ru.geekbrains.marchmarker.utils.JwtTokenUtil;
+import ru.geekbrains.march.market.api.JwtRequest;
+import ru.geekbrains.march.market.api.JwtResponse;
+import ru.geekbrains.march.market.api.StringResponse;
+import ru.geekbrains.marchmarker.core.entities.User;
+import ru.geekbrains.marchmarker.core.exceptions.AppError;
+import ru.geekbrains.marchmarker.core.services.UserService;
+import ru.geekbrains.marchmarker.core.utils.JwtTokenUtil;
+
+import java.security.Principal;
 
 
 @RestController
@@ -38,5 +42,11 @@ public class AuthController {
     @GetMapping("/get_my_email/{token}")
     public String getEmailOfUser(@PathVariable String token){
         return userService.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).get().getEmail();
+    }
+
+    @GetMapping("/about_me")
+    public StringResponse getCurrentUserInfo(Principal principal){
+        User user = userService.findByUsername(principal.getName()).get();
+        return new StringResponse(user.getUsername() + " " + user.getEmail());
     }
 }

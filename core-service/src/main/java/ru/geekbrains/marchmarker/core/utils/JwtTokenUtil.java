@@ -1,4 +1,4 @@
-package ru.geekbrains.marchmarker.utils;
+package ru.geekbrains.marchmarker.core.utils;
 
 
 import io.jsonwebtoken.Claims;
